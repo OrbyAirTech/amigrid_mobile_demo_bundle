@@ -20,7 +20,7 @@ import { clearStreams } from '@/data/streamStore';
 import { clearSessionUser, refreshMyProfile } from '@/data/currentUserStore';
 import { clearMyGrids } from '@/data/myGridsStore';
 import { clearNotifications } from '@/data/notificationStore';
-import { hydrateSession, useSession } from '@/data/sessionStore';
+import { clearSession, hydrateSession, useSession } from '@/data/sessionStore';
 import { AnimatedSplash } from '@/components/AnimatedSplash';
 import { DEMO } from '@/config/env';
 import { installDemo } from '@/demo';
@@ -47,8 +47,10 @@ export default function RootLayout() {
 
   // Read the saved tokens once. The splash stays up until both fonts and the session are known, so someone
   // who is already signed in never sees the welcome screen flash by.
+  // Demo mode always starts signed out, on the welcome screen.
   useEffect(() => {
-    hydrateSession();
+    if (DEMO) void clearSession();
+    else hydrateSession();
   }, []);
 
   const ready = (loaded || !!error) && session.status !== 'loading';

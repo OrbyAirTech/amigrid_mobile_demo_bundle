@@ -50,6 +50,7 @@ type Lk = { rn: any; client: any };
 let loaded: Lk | null | undefined;
 
 function load(): Lk | null {
+  if (DEMO) return null; // Expo Go has no WebRTC; demo mode never loads it
   if (loaded !== undefined) return loaded;
   try {
     const rn = require('@livekit/react-native');
