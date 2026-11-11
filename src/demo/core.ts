@@ -56,6 +56,14 @@ const postOut = (p: db.DPost) => {
   };
 };
 
+/** Viewer and upvote counts drift over time so a live screen never looks frozen; your own stream climbs as it runs. */
+const liveViewers = (s: db.DStream) => {
+  const age = (Date.now() - Date.parse(s.started)) / 1000;
+  if (s.creator === ME) return Math.min(2 + Math.floor(age / 3), 60);
+  return Math.max(1, s.viewers + Math.round(Math.sin(Date.now() / 9000 + Number(s.id)) * 3));
+};
+const liveUpvotes = (s: db.DStream) => s.upvotes.size + (s.creator === ME ? Math.floor((Date.now() - Date.parse(s.started)) / 6000) : 0);
+
 const streamOut = (s: db.DStream, forMe = true) => {
   const u = db.userById(s.creator)!;
   return {
@@ -67,12 +75,12 @@ const streamOut = (s: db.DStream, forMe = true) => {
     post_id: s.post,
     started_at: s.started,
     ended_at: s.ended,
-    upvote_count: s.upvotes.size,
+    upvote_count: liveUpvotes(s),
     peak_viewer_count: s.peak,
     total_viewer_count: s.total,
     has_upvoted: forMe && s.upvotes.has(ME),
     creator: { id: u.id, username: u.username, display_name: u.display_name, profile_pic_url: u.pic },
-    viewer_count: s.viewers,
+    viewer_count: liveViewers(s),
   };
 };
 

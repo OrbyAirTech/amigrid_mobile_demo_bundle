@@ -82,5 +82,5 @@ const styles = StyleSheet.create({
   label: { color: colors.ink, letterSpacing: 0.4 },
   value: { color: colors.textPrimary, fontSize: 24 },
   caption: { color: colors.textMuted },
-  outline: { ...StyleSheet.absoluteFill, borderRadius: radius.lg, borderWidth: 2 },
+  outline: { ...StyleSheet.absoluteFillObject, borderRadius: radius.lg, borderWidth: 2 },
 });

@@ -314,7 +314,7 @@ function PovThumb({ stream, active, onPress }: { stream: Stream; active: boolean
   return (
     <Pressable onPress={onPress} accessibilityRole="button" accessibilityState={{ selected: active }} accessibilityLabel={`Watch ${stream.creator.display_name}`}>
       <View style={[styles.thumb, active && styles.thumbOn]}>
-        <LiveVideoSurface live compact streamId={stream.stream_id} stream={stream} style={StyleSheet.absoluteFill} />
+        <LiveVideoSurface live compact still streamId={stream.stream_id} stream={stream} style={StyleSheet.absoluteFill} />
         <LinearGradient colors={['transparent', 'rgba(36,22,35,0.85)']} style={styles.thumbShade} pointerEvents="none" />
         <View style={styles.thumbDot} />
         <Text style={styles.thumbName} numberOfLines={1}>{stream.creator.display_name.split(' ')[0]}</Text>

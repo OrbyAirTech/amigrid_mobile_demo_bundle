@@ -10,7 +10,7 @@ import { colors } from '@/theme';
  */
 export const BACKGROUNDS = [
   require('../../assets/images/neumorphic-bg.jpg'),
-  // require('../../assets/images/neumorphic-bg-2.jpg'),
+  require('../../assets/images/neumorphic2-bg.png'),
 ];
 
 /**

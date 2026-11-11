@@ -21,6 +21,8 @@ import { clearSessionUser, refreshMyProfile } from '@/data/currentUserStore';
 import { clearMyGrids } from '@/data/myGridsStore';
 import { clearNotifications } from '@/data/notificationStore';
 import { hydrateSession, useSession } from '@/data/sessionStore';
+import { AnimatedSplash } from '@/components/AnimatedSplash';
+import { DEMO } from '@/config/env';
 import { installDemo } from '@/demo';
 import { colors } from '@/theme';
 
@@ -87,18 +89,30 @@ export default function RootLayout() {
   return (
     <GestureHandlerRootView style={styles.root}>
       <StatusBar style="dark" />
-      {/* Screen transitions are off for now: they cost frames and nothing should slide in. */}
+      {/* Demo mode animates screen changes (slide for pushed screens, fade between the main tabs); the real app keeps them off. */}
       <Stack
         screenOptions={{
           headerShown: false,
-          animation: 'none',
+          animation: DEMO ? 'slide_from_right' : 'none',
+          animationDuration: 260,
           contentStyle: { backgroundColor: colors.background },
         }}
       >
-        {/* Swiping back from the left edge still closes replies; there's just no slide animation. */}
+        <Stack.Screen name="index" options={{ animation: DEMO ? 'fade' : 'none' }} />
+        <Stack.Screen name="profile" options={{ animation: DEMO ? 'fade' : 'none', animationDuration: 180 }} />
+        <Stack.Screen name="map" options={{ animation: DEMO ? 'fade' : 'none', animationDuration: 180 }} />
+        <Stack.Screen name="feed" options={{ animation: DEMO ? 'fade' : 'none', animationDuration: 180 }} />
+        <Stack.Screen name="search" options={{ animation: DEMO ? 'fade' : 'none', animationDuration: 180 }} />
+        <Stack.Screen name="activity" options={{ animation: DEMO ? 'fade' : 'none', animationDuration: 180 }} />
+        <Stack.Screen name="location" options={{ animation: DEMO ? 'fade' : 'none' }} />
+        <Stack.Screen name="go-live" options={{ animation: DEMO ? 'slide_from_bottom' : 'none' }} />
+        <Stack.Screen name="add-product" options={{ animation: DEMO ? 'slide_from_bottom' : 'none' }} />
+        <Stack.Screen name="order" options={{ animation: DEMO ? 'slide_from_bottom' : 'none' }} />
+        {/* Swiping back from the left edge closes replies. */}
         <Stack.Screen name="replies" options={{ gestureEnabled: true }} />
       </Stack>
       <PushBanner />
+      {DEMO ? <AnimatedSplash /> : null}
     </GestureHandlerRootView>
   );
 }

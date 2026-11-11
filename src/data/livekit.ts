@@ -77,6 +77,7 @@ let audioSessions = 0;
 
 /** Video is always subscribed; sound only for the stream in the big frame. */
 function syncSubscriptions(id: string, room: any) {
+  if (DEMO) return; // the demo has no real room to subscribe on
   const { Track } = load()!.client;
   for (const p of room.remoteParticipants.values()) {
     for (const pub of p.trackPublications.values()) {
@@ -218,6 +219,8 @@ function streamUrlOf(streamId: string): string | undefined {
 }
 
 export async function captureStreamFrame(streamId: string): Promise<string | null> {
+  // Demo: a screenshot of a video view comes out black, so a still from the stream's picture stands in.
+  if (DEMO) return `https://picsum.photos/seed/moment-${streamId}-${Date.now() % 7}/900/900`;
   const url = streamUrlOf(streamId);
   if (!frameReader || !url) return null;
   try {

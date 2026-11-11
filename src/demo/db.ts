@@ -131,6 +131,8 @@ export const spaces: DSpace[] = [
   space('3005', 'Jamestown Photo Walk', 'Monthly walks with cameras, old lighthouses and fresh fish.', 'custom', '2002', ['2002', '2010', '2003'], -0.009, -0.011, 62),
   space('3006', 'Makola Foodies', 'Where to eat, what to order, who to ask. Invite only.', 'custom', '2007', ['2007', '2011', '2009'], -0.003, -0.002, 55, 'secure', 'private'),
 ];
+/** You run these grids, so Go Live shows in their feed. */
+for (const id of ['3001', '3003', '3004']) spaces.find((x) => x.id === id)!.admins.push(ME);
 export const spaceById = (id: string) => spaces.find((s) => s.id === id);
 export const spaceProfile = (s: DSpace) => photo(`grid-${s.id}`, 300, 300);
 export const spaceBanner = (s: DSpace) => photo(`banner-${s.id}`, 900, 400);
@@ -301,9 +303,20 @@ export type DStream = {
   post: string | null;
 };
 export const streams: DStream[] = [
+  // Accra Techies
   { id: '7001', space: '3003', creator: '2004', title: 'New API walkthrough', status: 'live', started: ago(8), ended: null, upvotes: new Set(['2006', '2008']), viewers: 37, peak: 41, total: 58, post: '6013' },
+  { id: '7004', space: '3003', creator: '2008', title: 'Cracked screen, fixed live', status: 'live', started: ago(14), ended: null, upvotes: new Set(['2004']), viewers: 22, peak: 29, total: 40, post: null },
+  { id: '7005', space: '3003', creator: '2003', title: 'Weaving kente, behind the scenes', status: 'live', started: ago(31), ended: null, upvotes: new Set(['2004', '2006', '2008']), viewers: 51, peak: 56, total: 90, post: null },
+  // Labadi Beach Runners
   { id: '7002', space: '3004', creator: '2005', title: 'Sunrise run, live from Labadi', status: 'live', started: ago(22), ended: null, upvotes: new Set(['2002', '2009', '2010']), viewers: 64, peak: 70, total: 120, post: null },
+  { id: '7008', space: '3004', creator: '2002', title: 'Golden hour on the beach', status: 'live', started: ago(11), ended: null, upvotes: new Set(['2005']), viewers: 33, peak: 38, total: 52, post: null },
+  { id: '7009', space: '3004', creator: '2010', title: 'Cooldown ride along the coast', status: 'live', started: ago(4), ended: null, upvotes: new Set<string>(), viewers: 12, peak: 12, total: 15, post: null },
+  // Legon Campus Hub
   { id: '7003', space: '3001', creator: '2012', title: 'Drum circle warm-up', status: 'live', started: ago(5), ended: null, upvotes: new Set(['2006']), viewers: 18, peak: 18, total: 21, post: null },
+  { id: '7006', space: '3001', creator: '2006', title: 'Line follower test run', status: 'live', started: ago(17), ended: null, upvotes: new Set(['2004', '2012']), viewers: 27, peak: 31, total: 44, post: null },
+  // Osu Night Market
+  { id: '7010', space: '3002', creator: '2009', title: 'Friday market setup', status: 'live', started: ago(26), ended: null, upvotes: new Set(['2002', '2007']), viewers: 45, peak: 49, total: 77, post: null },
+  { id: '7011', space: '3002', creator: '2007', title: 'Street food tour, stall by stall', status: 'live', started: ago(9), ended: null, upvotes: new Set(['2009']), viewers: 29, peak: 33, total: 41, post: null },
 ];
 
 /* ---- notifications ---- */
