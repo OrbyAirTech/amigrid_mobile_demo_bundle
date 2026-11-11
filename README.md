@@ -12,7 +12,7 @@ npx expo start
 Scan the QR code with Expo Go for a quick look. Once we add native-only libraries (maps, push, etc.), switch to a development build:
 
 ```bash
-npx expo run:ios      # or run:android
+// stick to expo start for now since there is no native build
 ```
 
 ## Structure
